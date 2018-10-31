@@ -1,0 +1,241 @@
+---
+title: "R Markdown Workshop"
+author: "Jon Sweetman"
+date: "October 25, 2018"
+output: 
+  bookdown::html_document2: default
+---
+
+#About R Markdown
+Simply put, .Rmd is a text based file format that allows you to include both descriptive text, code blocks and code output. You can run the code in R and using a 
+package called knitr (which you will learn about today) you can export the text formated .Rmd file to a nicely rendered, shareable format like pdf, word or html. 
+When you knit (or use knitr) the code is run and so your code outputs including plots, and other figures appear in the rendered document.
+
+> R Markdown (.Rmd) is an authoring format that enables easy creation of dynamic documents, presentations, and reports from R. It combines the core syntax of markdown 
+(an easy to write plain text format) with embedded R code chunks that are run so their output can be included in the final document. R Markdown documents are fully 
+reproducible (they can be automatically regenerated whenever underlying R code or data changes)." - RStudio documentation.
+
+#Objectives:
++ Know how to create an R Markdown file in RStudio.
++ Be able to write a script with text and R code chunks.
++ Create an R Markdown document ready to be 'knit' into an html document to share your code and results.
+
+#Install R Packages
+knitr: `install.packages("knitr")`
+rmarkdown: `install.packages("rmarkdown")`
+
+Watch the 6:38 minute video below to see how you convert an R Markdown file to html (or other formats) using knitr in RStudio. NOTE: The text size in the video is small so you may want to watch the video in full screen mode.
+
+<a href="https://youtu.be/DNS7i2m4sB0
+" target="_blank"><img src="https://i.ytimg.com/vi/DNS7i2m4sB0/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCxIPY9LW0ZRCUU2x29n1Dy9VcgFg" 
+alt="R Markdown with RSTudio" width="240" height="180" border="10" /></a>
+
+#Create Your .Rmd File
+
+Now that you see how R Markdown can be used in RStudio, you are ready to create your own .Rmd document. Do the following:
+
+1. Create a new R Markdown file and choose html as the desired output format.
+2. Enter a Title (R Markdown Workshop) and Author Name (your name). Then click OK.
+3. Save the file using the following format: FirstInitial-LastName-rmarkdownworkshop.Rmd NOTE: The document title is not the same as the file name.
+4. Hit the `Knit HTML` drop down button in RStudio (as is done in the video above). What happens?
+
+Next, let's break down the structure of an R Markdown file.
+
+Screenshot of a new R Markdown document in RStudio. Checkout the three types of information: 1. the YAML header at the very top 2. Chunks of r code separated by ``` and 3. Text written using markdown syntax.
+
+##There are three parts to an .Rmd file:
+Header: The text at the top of the document, written in YAML format.
+Markdown sections: Text that describes your workflow written using markdown syntax.
+Code chunks: Chunks of R code that can be run and also can be rendered using knitr to an output document.
+
+Next, let's break down each of the parts listed above.
+
+###YAML Header (front matter)
+An R Markdown file always starts with a header written using [YAML syntax](https://en.wikipedia.org/wiki/YAML). This header is sometimes referred to as the front matter.
+
+There are four default elements in the RStudio YAML header:
+
+title: The title of your document. Note, this is not the same as the file name.
+author: Who wrote the document.
+date: By default this is the date that the file is created.
+output: What format will the output be in. You will use html.
+Note that a YAML header begins and ends with three dashes ---. Also notice that the value for each element, title, author, etc, is in quotes "value-here" next to the element. A YAML header may be structured differently depending upon how your are using it. Learn more on the [R Markdown documentation page](http://rmarkdown.rstudio.com/authoring_quick_tour.html#output_options).
+
+
+Example YAML header in an RStudio R Markdown file:
+
+###R Markdown Text & Markdown Blocks
+The second part of a R Markdown document is the markdown itself which is used to add documentation to your file (or write your report).
+
+Paragraph Text: When you type text in a markdown document with no additional syntax, the text will appear as paragraph text. You can add additional syntax to that text to format it in different ways.
+
+To create a line break, end a line   
+with two or more spaces, and then type return.
+
+Use an asterix mark to provide emphasis such as *italics* or **bold**  
+To bold text, add two asterisks before and after a word or phrase.  To italicize text, add one asterik befor and after the word or phrase. Three asteriks will add both bold and italics: ***like this***
+
+
+if we want to highlight a function or some code within a plain text paragraph, we can use one backtick on each side of the text, like this: `Here is some code`. This is the backtick, or grave; not an apostrophe (on most US keyboards it is on the same key as the tilde (~)).
+
+To create a link, enclose the link text in brackets (e.g., [Duck Duck Go]) and then follow
+it immediately with the URL in parentheses (e.g., (https://duckduckgo.com)).
+ Example: [Duck Duck Go](https://duckduckgo.com).
+
+To create a horizontal rule, use three or more asterisks (***)
+
+  ***
+  
+We can also embed LaTex or MathML equations,
+$\frac{1}{n} \sum_{i=1}^{n} x_{i}$
+
+Section Headings
+We create a heading using the pound (#) sign. For the headers to render properly there must be a space between the # and the header text. Heading one is 1 # sign, heading two is 2 ## signs, etc as follows:
+
+## Heading Two
+
+Data tip: There are many free Markdown editors out there! The atom.io editor is a powerful text editor package by GitHub, that also has a Markdown renderer that allows you to preview the rendered Markdown as you write.
+
+##How to Use R Markdown Code Chunks
+
+Code chunks in an R Markdown document contain your R code. All code chunks start and end with ``` - three backticks or graves. On your keyboard, the backticks can be found on the same key as the tilde (~). Graves are not the same as an apostrophe!
+
+A code chunk looks like this:
+
+```{r chunk-name-with-no-spaces}
+# code goes here
+ ```
+The first line: ```{r chunk-name-with-no-spaces} contains the language (r) in this case, and the name of the chunk. Specifying the language is mandatory. Next to the {r}, there is a chunk name. The chunk name is not necessarily required however, it is good practice to give each chunk a unique name to support more advanced knitting approaches.
+
+
+```{r perform-math }
+# perform addition
+a <- 1+2
+
+b <- 234
+
+# subtract a from b
+final_answer <- b - a
+
+# write out the final answer variable
+final_answer
+
+```
+You can also evaluate R expressions inline by enclosing the expression within a single back-tick qualified with 'r'. For example, the following code embeds R results as text in the output shown on the right:
+
+I counted `r sum(c(1, 2, 3))` 
+blue cars on the highway
+
+Code Chunk Options
+You can add options to each code chunk. These options allow you to customize how or if you want code to be processed or appear on the rendered output (pdf document, html document, etc). Code chunk options are added on the first line of a code chunk after the name, within the curly brackets.
+
+The example below, is a code chunk that will not be "run", or evaluated, by R. The code within the chunk will appear on the output document, however there will be no outputs from the code.
+
+```{r intro-option, eval = FALSE}
+# this is a comment. text, next to a comment, is not processed by R
+# comments will appear on your rendered r markdown document
+1+2
+ ```
+One example of using eval = FALSE is for a code chunk that exports a file such as a figure graphic or a text file. You may want to show or document the code that you used to export that graphic in your html or pdf document, but you don't need to actually export that file each time you create a revised html or pdf document.
+
+3 Common Chunk Options: Eval, Echo & Results
+Three common code chunk options are:
+
+eval = FALSE: Do not evaluate (or run) this code chunk when knitting the RMD document. The code in this chunk will still render in our knitted html output, however it will not be evaluated or run by R.
+
+echo=FALSE: Hide the code in the output. The code is evaluated when the Rmd file is knit, however only the output is rendered on the output document.
+
+results=hide: The code chunk will be evaluated but the results or the code will not be rendered on the output document. This is useful if you are viewing the structure of a large object (e.g. outputs of a large data.frame which is the equivalent of a spreadsheet in R).
+Multiple code chunk options can be used for the same chunk.
+
+##Convert R Markdown to PDF or HTML
+
+we've learned about the R Markdown format and how to create a report using R Markdown in RStudio. In this tutorial, we will render or knit an R Markdown document to a web friendly, html format using the R knitr package. knitr can be used to convert R Markdown files to many different formats including: html, pdf, GitHub markdown (.md) and more.
+
+###What is Knitr?
+knitr is the R package that we use to convert an R Markdown document into another, more user friendly format like .html or .pdf.
+
+To knit in RStudio, click the Knit pull down button. You want to use the Knit HTML option for this lesson.
+
+When you click the Knit HTML button, a window will open in your console titled R Markdown. This pane shows the knitting progress. The output (html in this case) file will automatically be saved in the current working directory. If there is an error in the code, an error message will appear with a line number in the R Console to help you diagnose the problem.
+
+When knitting is complete, the html file produced will automatically open.
+
+Notice that information from the YAML header (title, author, date) is printed at the top of the HTML document. Then the html shows the text, code, and results of the code that you included in the Rmd document.
+
+##Add Images to an R Markdown Report
+
+You can add images to an R Markdown report using markdown syntax as follows:  
+\![Alt text]\(path-to-image-here "title")
+
+To add an image, add an exclamation mark (!), followed by alt text in brackets, and the path or URL to the image asset in parentheses. You can optionally add a title after
+the URL in the parentheses.
+
+However, when you knit the report, R will only be able to find your image if you have placed it in the right place - RELATIVE to your .Rmd file. This is where good file management becomes extremely important.
+
+To make this simple, let's set up a directory named images in your BIOL850 / working directory. If your .Rmd file is located in the root of this directory and all images that you want to include in your report are located in the images directory within the BIOL850 working directory, then the path that you would use for each image would look like:
+
+images/image-name-here.png
+
+If all of your images are in your images directory, then knitr will be able to easily find them. This also follows good file management practices because all of the images that you use in your report are contained within your project directory.
+
+##Add Citations and Cross References to an R Markdown Report with Bookdown
+
+
+make sure bookdown is installed  
+`install.packages("bookdown")`  
+
+Bookdown is an R Markdown extension that can be used to create reports. In this lesson however you will review briefly how to use bookdown to create single document reports. The steps are as follows:
+
+Add the Following Code to Your YAML Header in Your R Markdown Document
+Note that this code replaces the output: html_document that is the default for R Markdown: 
+  
+  output:  
+       bookdown::html_document2: default  
+
+This tells R to use bookdown rather than the conventional R Markdown. Notice below you use html_document2 to create html output with inline citations.
+
+To achieve different styling and formats, you can replace html_document2 with other outputs including:
+
+* tufte_html2,
+* pdf_document2,
+* word_document2,
+* tufte_handout2,
+* and tufte_book2
+
+Learn more about bookdown output options here: https://bookdown.org/yihui/bookdown/a-single-document.html#ref-R-rticles
+
+**Create a BibTex File Containing References**  
+Next, create a BibTex file containing all of the citations that you will use in your report. A BibTex file is a text formatted, machine readable reference list. You can create BibTex reference lists in many reference manager tools including Zotero and Mendeley or you can go the hard route and make one on your own. A BibTex file should be named with a .bib extension for example references.bib and needs to be saved using the UTF-8 encoding.
+
+Be sure to save that file in the same working directory with your .Rmd file!
+
+Add a Link to Your BibText File to the YAML Header
+Using the code below, add a link to your BibTex file.
+
+bibliography: your-bib-file.bib
+Now your entire YAML header looks like this:
+
+\---  
+title: "Your title here"  
+author: "Your name here"  
+output:  
+  bookdown::html_document2: default  
+bibliography: your-bib-file.bib  
+\---  
+
+##Additional Resources
+[R studio R / markdown cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+
+# Assignment:
+
+##Your turn:
+Create a PDF document using RMarkdown.
+It should contain the following:
+1. a paragraph of text with a heading
+2. A chunk of R code that generates a histogram (show the code in the PDF file; create some basic data to use to make the figure)
+3. The figure should be embedded in the PDF
+4. In your paragraph of text (1) you should include two citations to references.  Include the citations at the end of the PDF using a BibTex file
+
+You should submit: The PDF, The RMarkdown file (.Rmd) and the BibTex file you used to generate the PDF.
+
